@@ -56,7 +56,30 @@ floorPlane.position.y = -Math.PI; // this is 180 degrees
 scene.add(floorPlane); // add the floor to the scene
 
 // Create the walls
-// const wallGroup = 
+const wallGroup = new THREE.Group(); // create a group to hold the walls
+scene.add(wallGroup);
+
+// Front Wall
+const frontWall = new THREE.Mesh(
+    new THREE.BoxGeometry(50, 20, 0.001),
+    new THREE.MeshBasicMaterial({color: "green"})
+);
+
+frontWall.position.z = -20;
+
+// Left Wall
+const leftWall = new THREE.Mesh(
+    new THREE.BoxGeometry(50, 20, 0.001),
+    new THREE.MeshBasicMaterial({
+        color: "red"
+    })
+);
+
+leftWall.rotation.y = Math.PI / 2; // this is 90 degrees
+leftWall.position.x = -20;
+
+wallGroup.add(frontWall, leftWall);
+
 
 // function when a key is pressed, execute this function
 function onKeyDown(event) {
