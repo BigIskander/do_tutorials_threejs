@@ -38,6 +38,25 @@ scene.add(cube); // add cube to scene
 // Event listener for when we press the keys
 document.addEventListener("keydown", onKeyDown, false);
 
+// Texture of the floor
+let floorTexture = new THREE.TextureLoader().load("img/Floor.jpg");
+
+// Create the floor plane.
+let planeGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the object
+let planeMaterial = new THREE.MeshBasicMaterial({
+    map: floorTexture,
+    side: THREE.DoubleSide,
+});
+
+let floorPlane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+floorPlane.rotation.x = Math.PI / 2; // this is 90 degrees
+floorPlane.position.y = -Math.PI; // this is 180 degrees
+
+scene.add(floorPlane);
+
+
+
 // function when a key is pressed, execute this function
 function onKeyDown(event) {
     let kyecode = event.which;
