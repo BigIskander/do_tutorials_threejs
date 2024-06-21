@@ -20,12 +20,12 @@ document.body.appendChild(renderer.domElement); // add the renderer to our html
 
 // Let there be Light!
 // Ambient Light 
-let ambientLight = new THREE.AmbientLight(0x101010, 1.0); // color, intensity, distance, decay
+const ambientLight = new THREE.AmbientLight(0x101010, 1.0); // color, intensity, distance, decay
 ambientLight.position = camera.position; // Light follows camera
 scene.add(ambientLight);
 
 // Directional Light
-let sunLight = new THREE.DirectionalLight(0xdddddd, 1.0); // color, intensity
+const sunLight = new THREE.DirectionalLight(0xdddddd, 1.0); // color, intensity
 sunLight.position.y = 15;
 scene.add(sunLight);
 
@@ -39,23 +39,24 @@ scene.add(cube); // add cube to scene
 document.addEventListener("keydown", onKeyDown, false);
 
 // Texture of the floor
-let floorTexture = new THREE.TextureLoader().load("img/Floor.jpg");
+const floorTexture = new THREE.TextureLoader().load("img/Floor.jpg");
 
 // Create the floor plane.
-let planeGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the object
-let planeMaterial = new THREE.MeshBasicMaterial({
+const planeGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the object
+const planeMaterial = new THREE.MeshBasicMaterial({
     map: floorTexture,
     side: THREE.DoubleSide,
 });
 
-let floorPlane = new THREE.Mesh(planeGeometry, planeMaterial);
+const floorPlane = new THREE.Mesh(planeGeometry, planeMaterial);
 
 floorPlane.rotation.x = Math.PI / 2; // this is 90 degrees
 floorPlane.position.y = -Math.PI; // this is 180 degrees
 
-scene.add(floorPlane);
+scene.add(floorPlane); // add the floor to the scene
 
-
+// Create the walls
+// const wallGroup = 
 
 // function when a key is pressed, execute this function
 function onKeyDown(event) {
@@ -85,7 +86,8 @@ let render = function () {
     // Renderer
     renderer.render(scene, camera); //renders the scene
 
-    requestAnimationFrame(render);
+    // requestAnimationFrame(render);
 };
 
-render();
+// render();
+renderer.setAnimationLoop(render);
