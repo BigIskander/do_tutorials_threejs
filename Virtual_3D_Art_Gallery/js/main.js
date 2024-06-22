@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 // console.log("Three object here", THREE);
 // Scene
 const scene = new THREE.Scene(); // create the scene
@@ -21,7 +22,7 @@ document.body.appendChild(renderer.domElement); // add the renderer to our html
 // Let there be Light!
 // Ambient Light 
 const ambientLight = new THREE.AmbientLight(0x101010, 1.0); // color, intensity, distance, decay
-ambientLight.position = camera.position; // Light follows camera
+ambientLight.position.set(camera.position.x, camera.position.y, camera.position.z); // Light follows camera
 scene.add(ambientLight);
 
 // Directional Light
@@ -126,6 +127,9 @@ const painting1 = createPainting("artworks/0.jpg", 10, 5, new THREE.Vector3(-10,
 
 const painting2 = createPainting("artworks/1.jpg", 10, 5, new THREE.Vector3(10, 5, -19.99));
 scene.add(painting1, painting2);
+
+// Controls
+// const controls = new 
 
 
 // function when a key is pressed, execute this function
