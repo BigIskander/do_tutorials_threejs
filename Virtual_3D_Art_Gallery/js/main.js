@@ -78,7 +78,54 @@ const leftWall = new THREE.Mesh(
 leftWall.rotation.y = Math.PI / 2; // this is 90 degrees
 leftWall.position.x = -20;
 
-wallGroup.add(frontWall, leftWall);
+// Right Wall
+const rightWall = new THREE.Mesh(
+    new THREE.BoxGeometry(50, 20, 0.001),
+    new THREE.MeshBasicMaterial({
+        color: "yellow"
+    })
+);
+
+rightWall.rotation.y = Math.PI / 2; // this is 90 degrees
+rightWall.position.x = 20;
+
+wallGroup.add(frontWall, leftWall, rightWall);
+
+// Leep through each wall and create the bounding box
+for (let i = 0; i < wallGroup.children.length; i++) {
+    wallGroup.children[i].BBox = new THREE.Box3();
+    wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
+}
+
+// Create the ceiling
+const ceilingGeometry = new THREE.PlaneGeometry(50, 50); // BexGeometry is the shape of the object
+const ceilingMaterial = new THREE.MeshBasicMaterial({
+    color: "blue"
+});
+const ceilingPlane = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+
+ceilingPlane.rotation.x = Math.PI / 2; // this is 90 degrees
+ceilingPlane.position.y = 12;
+
+scene.add(ceilingPlane);
+
+function createPainting(imageURL, width, height, position) {
+    const textureLoader = new THREE.TextureLoader();
+    const paintingTexture = textureLoader.load(imageURL);
+    const paintingMaterial = new THREE.MeshBasicMaterial({
+        map: paintingTexture,
+    });
+    const paintingGeometry = new THREE.PlaneGeometry(width, height);
+    const painting = new THREE.Mesh(paintingGeometry, paintingMaterial);
+    painting.position.set(position.x, position.y, position.z);
+    return painting;
+}
+
+const painting1 = createPainting("artworks/0.jpg", 10, 5, new THREE.Vector3(-10, 5, -19.99));
+// scene.add(painting1);
+
+const painting2 = createPainting("artworks/1.jpg", 10, 5, new THREE.Vector3(10, 5, -19.99));
+scene.add(painting1, painting2);
 
 
 // function when a key is pressed, execute this function
