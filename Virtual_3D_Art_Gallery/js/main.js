@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+
 // console.log("Three object here", THREE);
 // Scene
 const scene = new THREE.Scene(); // create the scene
@@ -129,28 +131,50 @@ const painting2 = createPainting("artworks/1.jpg", 10, 5, new THREE.Vector3(10, 
 scene.add(painting1, painting2);
 
 // Controls
-// const controls = new 
+const controls = new PointerLockControls(camera, document.body);
 
+// Lock the pointer (controls are activated) and hide the menu when the experience starts
+function startExperience() {
+    // Lock the pointer
+    controls.lock();
+    // Hide the menu
+    hideMenu();
+}
+
+const playButton = document.getElementById("play_button");
+playButton.addEventListener("click", startExperience);
+
+// Hide menu
+function hideMenu() {
+    const menu = document.getElementById("menu");
+    menu.style.display = 'none';
+}
+
+// Show menu
+function showMenu() {
+    const menu = document.getElementById("menu");
+    menu.style.display = 'block';
+}
 
 // function when a key is pressed, execute this function
 function onKeyDown(event) {
     let kyecode = event.which;
 
     // right arrow key
-    if(kyecode === 39) {
-        camera.translateX(-0.05);
+    if(kyecode === 39 || kyecode === 68) {
+        controls.moveRight(0.08);
     }
     // left arrow key
-    else if(kyecode === 37) {
-        camera.translateX(0.05);
+    else if(kyecode === 37 || kyecode === 65) {
+        controls.moveRight(-0.08);
     }
     // up arrow key
-    else if(kyecode === 38) {
-        camera.translateY(-0.05);
+    else if(kyecode === 38 || kyecode === 87) {
+        controls.moveForward(0.08);
     }
     // down arrow key
-    else if(kyecode === 40) {
-        camera.translateY(0.05);
+    else if(kyecode === 40 || kyecode === 83) {
+        controls.moveForward(-0.08);
     }
 }
 
