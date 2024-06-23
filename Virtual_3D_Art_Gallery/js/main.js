@@ -100,6 +100,26 @@ for (let i = 0; i < wallGroup.children.length; i++) {
     wallGroup.children[i].BBox.setFromObject(wallGroup.children[i]);
 }
 
+// check if the player intersects the wall
+function checkCollision() {
+    const playerBoundingBox = new THREE.Box3();
+    const cameraWorldPosition = new THREE.Vector3();
+    camera.getWorldPosition(cameraWorldPosition);
+    playerBoundingBox.setFromCenterAndSize(
+        cameraWorldPosition,
+        new THREE.Vector3(1, 1, 1)
+    );
+
+    for (let i = 0; i < wallGroup.children.length; i++) {
+        const wall = wallGroup.children[i];
+        if (playerBoundingBox.intersectsBox(wall.BBox)) {
+            return true;      
+        }
+    }
+
+    return false;
+}
+
 // Create the ceiling
 const ceilingGeometry = new THREE.PlaneGeometry(50, 50); // BexGeometry is the shape of the object
 const ceilingMaterial = new THREE.MeshBasicMaterial({
@@ -209,6 +229,10 @@ function updateMovement(delta) {
     }
     if(keyPressed.ArrowDown  || keyPressed.s) {
         controls.moveForward(-moveSpeed);
+    }
+
+    if(checkCollision()) {
+        camera.position.set(preveousPosition.x, preveousPosition.y, preveousPosition.z);
     }
 }
 
