@@ -232,7 +232,7 @@ function updateMovement(delta) {
     }
 
     if(checkCollision()) {
-        camera.position.set(preveousPosition.x, preveousPosition.y, preveousPosition.z);
+        camera.position.copy(preveousPosition);
     }
 }
 
