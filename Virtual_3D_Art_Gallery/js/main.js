@@ -62,10 +62,18 @@ scene.add(floorPlane); // add the floor to the scene
 const wallGroup = new THREE.Group(); // create a group to hold the walls
 scene.add(wallGroup);
 
+
+const wallTexture = new THREE.TextureLoader().load("img/wall.jpg");
+wallTexture.wrapS = THREE.RepeatWrapping;
+wallTexture.wrapT = THREE.RepeatWrapping;
+wallTexture.repeat.set(1, 1);
+
 // Front Wall
 const frontWall = new THREE.Mesh(
     new THREE.BoxGeometry(50, 20, 0.001),
-    new THREE.MeshBasicMaterial({color: "green"})
+    new THREE.MeshBasicMaterial({
+        map: wallTexture
+    })
 );
 
 frontWall.position.z = -20;
@@ -74,7 +82,7 @@ frontWall.position.z = -20;
 const leftWall = new THREE.Mesh(
     new THREE.BoxGeometry(50, 20, 0.001),
     new THREE.MeshBasicMaterial({
-        color: "red"
+        map: wallTexture
     })
 );
 
@@ -85,7 +93,7 @@ leftWall.position.x = -20;
 const rightWall = new THREE.Mesh(
     new THREE.BoxGeometry(50, 20, 0.001),
     new THREE.MeshBasicMaterial({
-        color: "yellow"
+        map: wallTexture
     })
 );
 
