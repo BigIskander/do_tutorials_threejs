@@ -39,7 +39,7 @@ scene.add(cube); // add cube to scene
 
 // Controls
 // Event listener for when we press the keys
-document.addEventListener("keydown", onKeyDown, false);
+// document.addEventListener("keydown", onKeyDown, false);
 
 // Texture of the floor
 const floorTexture = new THREE.TextureLoader().load("img/Floor.jpg");
@@ -156,32 +156,90 @@ function showMenu() {
     menu.style.display = 'block';
 }
 
-// function when a key is pressed, execute this function
-function onKeyDown(event) {
-    let kyecode = event.which;
+controls.addEventListener('unlock', showMenu);
 
-    // right arrow key
-    if(kyecode === 39 || kyecode === 68) {
-        controls.moveRight(0.08);
+// object to hold the keys pressed
+const keyPressed = {
+    ArrowUp: false,
+    ArrowDown: false,
+    ArrowLeft: false,
+    ArrowRight: false,
+    w: false,
+    a: false,
+    s: false,
+    d: false,
+};
+
+// Event Listener for when we press the keys
+document.addEventListener(
+    'keydown',
+    (event) => {
+        if (event.key in keyPressed) {
+            keyPressed[event.key] = true;
+        }
+    },
+    false
+);
+
+// Event Listener for when we release the keys
+document.addEventListener(
+    'keyup',
+    (event) => {
+        if (event.key in keyPressed) {
+            keyPressed[event.key] = false;
+        }
+    },
+    false
+);
+
+const clock = new THREE.Clock();
+
+function updateMovement(delta) {
+    const moveSpeed = 5 * delta;
+    const preveousPosition = camera.position.clone();
+
+    if(keyPressed.ArrowRight || keyPressed.d) {
+        controls.moveRight(moveSpeed);
     }
-    // left arrow key
-    else if(kyecode === 37 || kyecode === 65) {
-        controls.moveRight(-0.08);
+    if(keyPressed.ArrowLeft || keyPressed.a) {
+        controls.moveRight(-moveSpeed);
     }
-    // up arrow key
-    else if(kyecode === 38 || kyecode === 87) {
-        controls.moveForward(0.08);
+    if(keyPressed.ArrowUp || keyPressed.w) {
+        controls.moveForward(moveSpeed);
     }
-    // down arrow key
-    else if(kyecode === 40 || kyecode === 83) {
-        controls.moveForward(-0.08);
+    if(keyPressed.ArrowDown  || keyPressed.s) {
+        controls.moveForward(-moveSpeed);
     }
 }
+
+// // function when a key is pressed, execute this function
+// function onKeyDown(event) {
+//     let kyecode = event.which;
+
+//     // right arrow key
+//     if(kyecode === 39 || kyecode === 68) {
+//         controls.moveRight(0.08);
+//     }
+//     // left arrow key
+//     else if(kyecode === 37 || kyecode === 65) {
+//         controls.moveRight(-0.08);
+//     }
+//     // up arrow key
+//     else if(kyecode === 38 || kyecode === 87) {
+//         controls.moveForward(0.08);
+//     }
+//     // down arrow key
+//     else if(kyecode === 40 || kyecode === 83) {
+//         controls.moveForward(-0.08);
+//     }
+// }
 
 let render = function () {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
     // Renderer
+    const delta = clock.getDelta();
+    updateMovement(delta);
     renderer.render(scene, camera); //renders the scene
 
     // requestAnimationFrame(render);
