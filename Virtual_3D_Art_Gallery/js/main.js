@@ -37,10 +37,6 @@ let material = new THREE.MeshBasicMaterial({color: 0xff0000}); // color of the o
 let cube = new THREE.Mesh(geometry, material); // create cube with geometry and material
 scene.add(cube); // add cube to scene
 
-// Controls
-// Event listener for when we press the keys
-// document.addEventListener("keydown", onKeyDown, false);
-
 // Texture of the floor
 const floorTexture = new THREE.TextureLoader().load("img/Floor.jpg");
 
@@ -54,7 +50,7 @@ const planeMaterial = new THREE.MeshBasicMaterial({
 const floorPlane = new THREE.Mesh(planeGeometry, planeMaterial);
 
 floorPlane.rotation.x = Math.PI / 2; // this is 90 degrees
-floorPlane.position.y = -Math.PI; // this is 180 degrees
+floorPlane.position.y = -10; // this is 180 degrees
 
 scene.add(floorPlane); // add the floor to the scene
 
@@ -76,7 +72,7 @@ const frontWall = new THREE.Mesh(
     })
 );
 
-frontWall.position.z = -20;
+frontWall.position.z = -25;
 
 // Left Wall
 const leftWall = new THREE.Mesh(
@@ -87,7 +83,7 @@ const leftWall = new THREE.Mesh(
 );
 
 leftWall.rotation.y = Math.PI / 2; // this is 90 degrees
-leftWall.position.x = -20;
+leftWall.position.x = -25;
 
 // Right Wall
 const rightWall = new THREE.Mesh(
@@ -98,7 +94,7 @@ const rightWall = new THREE.Mesh(
 );
 
 rightWall.rotation.y = Math.PI / 2; // this is 90 degrees
-rightWall.position.x = 20;
+rightWall.position.x = 25;
 
 wallGroup.add(frontWall, leftWall, rightWall);
 
@@ -136,7 +132,7 @@ const ceilingMaterial = new THREE.MeshBasicMaterial({
 const ceilingPlane = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
 
 ceilingPlane.rotation.x = Math.PI / 2; // this is 90 degrees
-ceilingPlane.position.y = 12;
+ceilingPlane.position.y = 10;
 
 scene.add(ceilingPlane);
 
@@ -152,10 +148,10 @@ function createPainting(imageURL, width, height, position) {
     return painting;
 }
 
-const painting1 = createPainting("artworks/0.jpg", 10, 5, new THREE.Vector3(-10, 5, -19.99));
+const painting1 = createPainting("artworks/0.jpg", 10, 5, new THREE.Vector3(-10, 0, -24.99));
 // scene.add(painting1);
 
-const painting2 = createPainting("artworks/1.jpg", 10, 5, new THREE.Vector3(10, 5, -19.99));
+const painting2 = createPainting("artworks/1.jpg", 10, 5, new THREE.Vector3(10, 0, -24.99));
 scene.add(painting1, painting2);
 
 // Controls
@@ -243,28 +239,6 @@ function updateMovement(delta) {
         camera.position.copy(preveousPosition);
     }
 }
-
-// // function when a key is pressed, execute this function
-// function onKeyDown(event) {
-//     let kyecode = event.which;
-
-//     // right arrow key
-//     if(kyecode === 39 || kyecode === 68) {
-//         controls.moveRight(0.08);
-//     }
-//     // left arrow key
-//     else if(kyecode === 37 || kyecode === 65) {
-//         controls.moveRight(-0.08);
-//     }
-//     // up arrow key
-//     else if(kyecode === 38 || kyecode === 87) {
-//         controls.moveForward(0.08);
-//     }
-//     // down arrow key
-//     else if(kyecode === 40 || kyecode === 83) {
-//         controls.moveForward(-0.08);
-//     }
-// }
 
 let render = function () {
     cube.rotation.x += 0.01;
