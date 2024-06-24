@@ -149,13 +149,16 @@ function createPainting(imageURL, width, height, position) {
     return painting;
 }
 
+const paintingGroup = new THREE.Group(); // create a group to hold the walls
+scene.add(paintingGroup);
+
 const painting1 = createPainting("artworks/0.jpg", 10, 5, new THREE.Vector3(-10, 0, -24.99));
 const painting2 = createPainting("artworks/1.jpg", 10, 5, new THREE.Vector3(10, 0, -24.99));
 const painting3 = createPainting("artworks/2.jpg", 10, 5, new THREE.Vector3(-24.99, 0, -15));
 painting3.rotation.y = Math.PI / 2;
 const painting4 = createPainting("artworks/3.jpg", 10, 5, new THREE.Vector3(24.99, 0, -15));
 painting4.rotation.y = -Math.PI / 2;
-scene.add(painting1, painting2, painting3, painting4);
+paintingGroup.add(painting1, painting2, painting3, painting4);
 
 // Controls
 const controls = new PointerLockControls(camera, document.body);
@@ -269,7 +272,21 @@ let render = function () {
     const delta = clock.getDelta();
     updateMovement(delta);
 
-    
+    const distanceThreshold = 8;
+
+    let paintingToShow;
+    paintingGroup.children.forEach(painting => {
+        const distanceToPainting = camera.position.distanceTo(painting.position);
+        if (distanceToPainting < distanceThreshold) {
+            paintingToShow = painting;
+        }
+    });
+
+    if (paintingToShow) {
+        displayPaintingInfo({title: "Some painting kinda"});
+    } else {
+        hidePaintingInfo();
+    }
 
     renderer.render(scene, camera); //renders the scene
 };
