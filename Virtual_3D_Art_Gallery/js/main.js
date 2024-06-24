@@ -126,8 +126,9 @@ function checkCollision() {
 
 // Create the ceiling
 const ceilingGeometry = new THREE.PlaneGeometry(50, 50); // BexGeometry is the shape of the object
-const ceilingMaterial = new THREE.MeshBasicMaterial({
-    color: "blue"
+const ceilingTexture = new THREE.TextureLoader().load("img/ceiling.jpg");
+const ceilingMaterial = new THREE.MeshBasicMaterial({ 
+    map: ceilingTexture
 });
 const ceilingPlane = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
 
@@ -242,16 +243,35 @@ function updateMovement(delta) {
     }
 }
 
+// Display pintings info in the DOM
+function displayPaintingInfo(info) {
+    const infoElement = document.getElementById('painting-info');
+
+    infoElement.innerHTML = "\
+        <h3>" + info.title + "</h3>   \
+        <p>" + info.artist + "</p>    \
+        <p>Description: " + info.description + "</p>    \
+        <p>Year: " + info.year + "</p>    \
+    ";
+    infoElement.classList.add('show');
+}
+
+// Hide painting info in the DOM
+function hidePaintingInfo() {
+    const infoElement = document.getElementById('painting-info');
+    infoElement.classList.remove('show');
+}
+
 let render = function () {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
     // Renderer
     const delta = clock.getDelta();
     updateMovement(delta);
-    renderer.render(scene, camera); //renders the scene
 
-    // requestAnimationFrame(render);
+    
+
+    renderer.render(scene, camera); //renders the scene
 };
 
-// render();
 renderer.setAnimationLoop(render);
