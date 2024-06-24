@@ -149,10 +149,12 @@ function createPainting(imageURL, width, height, position) {
 }
 
 const painting1 = createPainting("artworks/0.jpg", 10, 5, new THREE.Vector3(-10, 0, -24.99));
-// scene.add(painting1);
-
 const painting2 = createPainting("artworks/1.jpg", 10, 5, new THREE.Vector3(10, 0, -24.99));
-scene.add(painting1, painting2);
+const painting3 = createPainting("artworks/2.jpg", 10, 5, new THREE.Vector3(-24.99, 0, -15));
+painting3.rotation.y = Math.PI / 2;
+const painting4 = createPainting("artworks/3.jpg", 10, 5, new THREE.Vector3(24.99, 0, -15));
+painting4.rotation.y = -Math.PI / 2;
+scene.add(painting1, painting2, painting3, painting4);
 
 // Controls
 const controls = new PointerLockControls(camera, document.body);
