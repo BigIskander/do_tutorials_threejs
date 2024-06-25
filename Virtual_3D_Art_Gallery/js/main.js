@@ -207,6 +207,9 @@ document.addEventListener(
         if (event.key in keyPressed) {
             keyPressed[event.key] = true;
         }
+        if (event.key === "Enter") {
+            startExperience();
+        }
     },
     false
 );
