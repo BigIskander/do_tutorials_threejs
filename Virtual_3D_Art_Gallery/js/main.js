@@ -228,6 +228,7 @@ document.addEventListener(
 const clock = new THREE.Clock();
 
 function updateMovement(delta) {
+    if (!controls.isLocked) return;
     const moveSpeed = 5 * delta;
     const preveousPosition = camera.position.clone();
 
