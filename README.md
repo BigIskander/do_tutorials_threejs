@@ -3,4 +3,10 @@ Nothing interesting here, just me doing tutorials from youtube videos.
 
 Ничего интересного здесь, только я делаю туториалы из youtube видео.
 
-https://www.youtube.com/watch?v=imqiYWidUIA&t=1448s&ab_channel=freeCodeCamp.org
+Visual_3D_Art_Gallery:
+
+https://www.youtube.com/watch?v=imqiYWidUIA&ab_channel=freeCodeCamp.org
+
+Other:
+
+https://www.youtube.com/watch?v=UMqNHi1GDAE&ab_channel=freeCodeCamp.org
