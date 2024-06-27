@@ -13,7 +13,7 @@
         height: 100%;
       }
     </style>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script type="importmap">
       {
@@ -25,11 +25,12 @@
     </script>
   </head>
   <body>
-    <div style="height: 100%; display: flex; flex-direction: row;">
-      <div style="width: 50%;">
+    <div style="height: 100%; display: flex; flex-direction: row; background-color: black; color: white;">
+      <div style="width: 20%; display: flex; flex-direction: column; justify-content: center;">
         <h1>Test</h1>
+        <p>Ok.</p>
       </div>
-      <div style="width: 50%;" id="canvasContainer">
+      <div style="width: 80%;" id="canvasContainer">
         <canvas></canvas>
       </div>
     </div>
