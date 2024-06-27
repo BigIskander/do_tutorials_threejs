@@ -18,20 +18,22 @@ const fragmentShader = await load_shader("./shaders/fragment.glsl");
 const atmosphereVertexShader = await load_shader("./shaders/atmosphereVertex.glsl");
 const atmosphereFragmentShader = await load_shader("./shaders/atmosphereFragment.glsl");
 
+const canvasContainer = document.querySelector('#canvasContainer');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
-    innerWidth / innerHeight,
+    canvasContainer.offsetWidth / canvasContainer.offsetHeight,
     0.1,
     1000
 );
 
 const renderer = new THREE.WebGLRenderer({
-    antialias: true
+    antialias: true,
+    canvas: document.querySelector('canvas')
 });
-renderer.setSize(innerWidth, innerHeight);
+
+renderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
-document.body.appendChild(renderer.domElement);
 
 // create a sphere
 const sphere = new THREE.Mesh(
