@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 
-function load_shader(file) {
+function load_shader(file_url) {
     return new Promise((resolve, reject) => {
         try {
-            fetch(file).then(
+            fetch(file_url).then(
                 (response) => response.text()).then((data) => { resolve(data); }
             );
         } catch(error) {
@@ -35,7 +35,12 @@ const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(5, 50, 50), 
     new THREE.ShaderMaterial({
         vertexShader: vertexShader,
-        fragmentShader
+        fragmentShader, // fragmentShader: fragmentShader
+        uniforms: {
+            globeTexture: {
+                value: new THREE.TextureLoader().load("./01-3.jpg")
+            }
+        }
     })
 );
 
