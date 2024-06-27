@@ -33,7 +33,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+// renderer.setPixelRatio(window.devicePixelRatio);
 
 // create a sphere
 const sphere = new THREE.Mesh(
@@ -70,14 +70,15 @@ scene.add(group);
 
 const starGeometry = new THREE.BufferGeometry();
 const starMaterial = new THREE.PointsMaterial({
-    color: 0xffffff
+    color: 0xffffff,
+    size: 1.0
 });
 
 const starVertices = []
 for (let i = 0; i < 10000; i++) {
     const x = (Math.random() - 0.5) * 2000;
     const y = (Math.random() - 0.5) * 2000;
-    const z = -Math.random() * 2000;
+    const z = -200 - (Math.random() * 2000);
     starVertices.push(x, y, z);
 }
 
