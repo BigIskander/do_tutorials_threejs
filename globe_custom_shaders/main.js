@@ -15,6 +15,9 @@ function load_shader(file_url) {
 const vertexShader = await load_shader("./shaders/vertex.glsl");
 const fragmentShader = await load_shader("./shaders/fragment.glsl");
 
+const atmosphereVertexShader = await load_shader("./shaders/atmosphereVertex.glsl");
+const atmosphereFragmentShader = await load_shader("./shaders/atmosphereFragment.glsl");
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -35,7 +38,7 @@ const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(5, 50, 50), 
     new THREE.ShaderMaterial({
         vertexShader: vertexShader,
-        fragmentShader, // fragmentShader: fragmentShader
+        fragmentShader: fragmentShader,
         uniforms: {
             globeTexture: {
                 value: new THREE.TextureLoader().load("./01-3.jpg")
@@ -45,6 +48,21 @@ const sphere = new THREE.Mesh(
 );
 
 scene.add(sphere);
+
+// create atmosphere
+const atmosphere = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 50, 50), 
+    new THREE.ShaderMaterial({
+        vertexShader: atmosphereVertexShader,
+        fragmentShader: atmosphereFragmentShader,
+        blending: THREE.AdditiveBlending,
+        side: THREE.BackSide
+    })
+);
+
+atmosphere.scale.setScalar(1.3);
+
+scene.add(atmosphere);
 
 camera.position.z = 15;
 
