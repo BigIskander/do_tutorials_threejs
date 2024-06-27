@@ -1,5 +1,20 @@
 import * as THREE from 'three';
 
+function load_shader(file) {
+    return new Promise((resolve, reject) => {
+        try {
+            fetch(file).then(
+                (response) => response.text()).then((data) => { resolve(data); }
+            );
+        } catch(error) {
+            reject(error);
+        }
+    });
+}
+
+const vertexShader = await load_shader("./shaders/vertex.glsl");
+const fragmentShader = await load_shader("./shaders/fragment.glsl");
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
     75,
@@ -18,9 +33,9 @@ document.body.appendChild(renderer.domElement);
 // create a sphere
 const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(5, 50, 50), 
-    new THREE.MeshBasicMaterial({
-        // color: 0xFF0000
-        map: new THREE.TextureLoader().load("./01-3.jpg")
+    new THREE.ShaderMaterial({
+        vertexShader: vertexShader,
+        fragmentShader
     })
 );
 
