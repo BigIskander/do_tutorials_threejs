@@ -60,7 +60,7 @@ const atmosphere = new THREE.Mesh(
     })
 );
 
-atmosphere.scale.setScalar(1.3);
+atmosphere.scale.setScalar(1.1);
 
 scene.add(atmosphere);
 
@@ -69,5 +69,6 @@ camera.position.z = 15;
 function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
+    // sphere.rotation.y += 0.001;
 }
 animate();
