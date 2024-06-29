@@ -31,16 +31,20 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.03;
 
 // meshes 
-const geometry = new THREE.PlaneGeometry(2, 2);
+const geometry = new THREE.IcosahedronGeometry(1, 50);
 const material = new THREE.ShaderMaterial({
     vertexShader: vertexShader,
     fragmentShader: fragmentShader
 });
 
+material.uniforms.uTime = { value: 0 };
+
 const ico = new THREE.Mesh(geometry, material);
 scene.add(ico);
 
-function update() {
+function update(timestamp, timeDiff) {
+    const time = timestamp / 10000;
+    material.uniforms.uTime.value = time;
     renderer.render(scene, camera);
     controls.update();
 }
