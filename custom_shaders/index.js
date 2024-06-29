@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "jsm/controls/OrbitControls.js";
+import { EffectComposer } from 'jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'jsm/postprocessing/RenderPass.js'
+import { UnrealBloomPass } from "jsm/postprocessing/UnrealBloomPass.js";
 
 function load_shader(file_url) {
     return new Promise((resolve, reject) => {
@@ -23,12 +26,18 @@ const fragmentMain = await load_shader("./shaders/fragment_main.glsl");
 const w = window.innerWidth;
 const h = window.innerHeight;
 const scene = new THREE.Scene();
-scene.fog = new THREE.FogExp2(0x000000, 0.3);
+// scene.fog = new THREE.FogExp2(0x000000, 0.3);
 const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
 camera.position.z = 2;
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(w, h);
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
+
+let composer = new EffectComposer(renderer);
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -42,7 +51,7 @@ const ambientLight = new THREE.AmbientLight('#4255ff', 0.5);
 scene.add(dirLight, ambientLight);
 
 // meshes 
-const geometry = new THREE.IcosahedronGeometry(1, 400);
+const geometry = new THREE.IcosahedronGeometry(1, 100);
 const material = new THREE.MeshStandardMaterial({
     onBeforeCompile: (shader) => {
         // storing a reference to the shader object
@@ -73,9 +82,16 @@ const material = new THREE.MeshStandardMaterial({
 const ico = new THREE.Mesh(geometry, material);
 scene.add(ico);
 
+// postprocessing
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(w, h), 1.5, 0.4, 100);
+bloomPass.threshold = 0.002;
+bloomPass.strength = 2.5;
+bloomPass.radius = 0;
+composer.addPass(bloomPass);
+
 function update(timestamp, timeDiff) {
-    renderer.render(scene, camera);
     controls.update();
+    composer.render();
     const time = timestamp / 10000;
     material.userData.shader.uniforms.uTime.value = time;
 }
@@ -86,5 +102,6 @@ function handleWindowResize () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    composer.setSize(window.innerWidth, window.innerHeight);
 }
 window.addEventListener('resize', handleWindowResize, false);
