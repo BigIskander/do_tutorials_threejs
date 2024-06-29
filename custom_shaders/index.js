@@ -17,6 +17,8 @@ function load_shader(file_url) {
 // const fragmentShader = await load_shader("./shaders/fragment.glsl");
 const vertexPars = await load_shader("./shaders/vertex_parse.glsl");
 const vertexMain = await load_shader("./shaders/vertex_main.glsl");
+const fragmentPars = await load_shader("./shaders/fragment_parse.glsl");
+const fragmentMain = await load_shader("./shaders/fragment_main.glsl");
 
 const w = window.innerWidth;
 const h = window.innerHeight;
@@ -32,18 +34,15 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.03;
 
-// Ambient Light 
-const ambientLight = new THREE.DirectionalLight(0xffffff); // color, intensity, distance, decay
-ambientLight.position.set(0, 100, 0); // Light follows camera
-scene.add(ambientLight);
+// lighting
+const dirLight = new THREE.DirectionalLight('#526cff', 0.6);
+dirLight.position.set(2, 2, 2);
 
-// Ambient Light 
-const ambientLight2 = new THREE.DirectionalLight(0xffffff); // color, intensity, distance, decay
-ambientLight2.position.set(0, -100, 0); // Light follows camera
-scene.add(ambientLight2);
+const ambientLight = new THREE.AmbientLight('#4255ff', 0.5);
+scene.add(dirLight, ambientLight);
 
 // meshes 
-const geometry = new THREE.IcosahedronGeometry(1, 100);
+const geometry = new THREE.IcosahedronGeometry(1, 400);
 const material = new THREE.MeshStandardMaterial({
     onBeforeCompile: (shader) => {
         // storing a reference to the shader object
@@ -55,10 +54,19 @@ const material = new THREE.MeshStandardMaterial({
         shader.vertexShader = shader.vertexShader.replace(parseVertex, 
             parseVertex + '\r\n' + vertexPars
         );
-        const mainVertexString = /* glsl */ `#include <displacementmap_vertex>`
+        const mainVertexString = /* glsl */ `#include <displacementmap_vertex>`;
         shader.vertexShader = shader.vertexShader.replace(mainVertexString,
             mainVertexString + '\r\n' + vertexMain
         );
+        const mainFragmentString = /* glsl */ `#include <normal_fragment_maps>`;
+        const parsFragmentString = /* glsl */ `#include <bumpmap_pars_fragment>`;
+        shader.fragmentShader = shader.fragmentShader.replace(parsFragmentString,
+            parsFragmentString + '\r\n' + fragmentPars
+        );
+        shader.fragmentShader = shader.fragmentShader.replace(mainFragmentString,
+            mainFragmentString + '\r\n' + fragmentMain
+        );
+        // console.log(shader.fragmentShader);
     }
 });
 
