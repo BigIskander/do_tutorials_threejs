@@ -36,21 +36,29 @@ const ambientLight = new THREE.AmbientLight('#4255ff', 0.5);
 scene.add(dirLight, ambientLight);
 
 const geometry = new THREE.IcosahedronGeometry(1, 100);
-const material = new THREE.ShaderMaterial({
+const numOfVertices = geometry.attributes.position.count;
+
+geometry.addGroup(0, numOfVertices / 2, 0);
+geometry.addGroup(0, numOfVertices, 1);
+
+const shaderMaterial = new THREE.ShaderMaterial({
     vertexShader: vertexShader,
     fragmentShader: fragmentShader
 });
+const standardMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
 
-material.uniforms.uTime = { value: 0 };
+const materials = [shaderMaterial, standardMaterial];
 
-const ico = new THREE.Mesh(geometry, material);
+shaderMaterial.uniforms.uTime = { value: 0 };
+
+const ico = new THREE.Mesh(geometry, materials);
 scene.add(ico);
 
 function update(timestamp, timeDiff) {
     controls.update();
     renderer.render(scene, camera);
     const time = timestamp / 10000;
-    material.uniforms.uTime.value = time;
+    shaderMaterial.uniforms.uTime.value = time;
 }
 
 renderer.setAnimationLoop(update);
