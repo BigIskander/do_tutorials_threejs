@@ -1,6 +1,21 @@
 import * as THREE from "three";
 import { OrbitControls } from "jsm/controls/OrbitControls.js";
 
+function load_shader(file_url) {
+    return new Promise((resolve, reject) => {
+        try {
+            fetch(file_url).then(
+                (response) => response.text()).then((data) => { resolve(data); }
+            );
+        } catch(error) {
+            reject(error);
+        }
+    });
+}
+
+const vertexShader = await load_shader("./shaders/vertex.glsl");
+const fragmentShader = await load_shader("./shaders/fragment.glsl");
+
 const w = window.innerWidth;
 const h = window.innerHeight;
 const scene = new THREE.Scene();
@@ -14,9 +29,28 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.03;
 
+// lighting
+const dirLight = new THREE.DirectionalLight('#526cff', 0.6);
+dirLight.position.set(2, 2, 2);
+const ambientLight = new THREE.AmbientLight('#4255ff', 0.5);
+scene.add(dirLight, ambientLight);
+
+const geometry = new THREE.IcosahedronGeometry(1, 100);
+const material = new THREE.ShaderMaterial({
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader
+});
+
+material.uniforms.uTime = { value: 0 };
+
+const ico = new THREE.Mesh(geometry, material);
+scene.add(ico);
+
 function update(timestamp, timeDiff) {
     controls.update();
     renderer.render(scene, camera);
+    const time = timestamp / 10000;
+    material.uniforms.uTime.value = time;
 }
 
 renderer.setAnimationLoop(update);
