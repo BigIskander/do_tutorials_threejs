@@ -10,10 +10,15 @@ var fragmentShaders = [
     "./shaders/HSB_polar.frag",             //5
     "./shaders/HSB_exp.frag",               //6
     "./shaders/HSB_shift.frag",             //7
-    "./shaders/rectangle.frag"              //8
+    "./shaders/rectangle.frag",             //8
+    "./shaders/circle.frag",                //9
+    "./shaders/circle_dot_product.frag",    //10
+    "./shaders/four_circle_shape.frag",     //11
+    "./shaders/polar_shapes.frag",          //12
+    "./shaders/triangle.frag"               //13
 ];
 // the chosen shader
-var nShader = 8;
+var nShader = 13;
 
 var camera, scene, renderer, clock;
 var uniforms;
