@@ -24,10 +24,12 @@ var fragmentShaders = [
     "./shaders/9truchet_tiles.frag",        //19
     "./shaders/random/random.frag",         //20
     "./shaders/random/random_mosaic.frag",  //21
-    "./shaders/random/random_maze.frag"   //22
+    "./shaders/random/random_maze.frag",    //22
+    "./shaders/random/noise.frag",          //23
+    "./shaders/random/simplex_noise.frag"   //24
 ];
 // the chosen shader
-var nShader = 22;
+var nShader = 24;
 
 var camera, scene, renderer, clock;
 var uniforms;
