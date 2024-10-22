@@ -2,18 +2,18 @@ import * as THREE from 'three';
 
 // shaders to play with
 var fragmentShaders = [
-    "./shaders/basic.frag",
-    "./shaders/shape_functions.frag",
-    "./shaders/color_transition.frag",
-    "./shaders/color_mix.frag",
-    "./shaders/HSB.frag",
-    "./shaders/HSB_polar.frag",
-    "./shaders/HSB_exp.frag",
-    "./shaders/HSB_shift.frag",
-    "./shaders/rectangle.frag"
+    "./shaders/basic.frag",                 //0
+    "./shaders/shape_functions.frag",       //1
+    "./shaders/color_transition.frag",      //2
+    "./shaders/color_mix.frag",             //3
+    "./shaders/HSB.frag",                   //4
+    "./shaders/HSB_polar.frag",             //5
+    "./shaders/HSB_exp.frag",               //6
+    "./shaders/HSB_shift.frag",             //7
+    "./shaders/rectangle.frag"              //8
 ];
 // the chosen shader
-var nShader = 1;
+var nShader = 8;
 
 var camera, scene, renderer, clock;
 var uniforms;
