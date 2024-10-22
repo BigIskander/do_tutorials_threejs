@@ -4,10 +4,13 @@ import * as THREE from 'three';
 var fragmentShaders = [
     "./shaders/basic.frag",
     "./shaders/shape_functions.frag",
-    "./shaders/color_transition.frag"
+    "./shaders/color_transition.frag",
+    "./shaders/color_mix.frag",
+    "./shaders/HSB.frag",
+    "./shaders/HSB_polar.frag"
 ];
 // the chosen shader
-var nShader = 2;
+var nShader = 5;
 
 var camera, scene, renderer, clock;
 var uniforms;
