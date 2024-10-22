@@ -1,7 +1,7 @@
 # do_tutorials_threejs
-Nothing interesting here, just me doing tutorials (from youtube videos mainly).
+Nothing interesting here, just me doing tutorials from youtube videos and more.
 
-Ничего интересного здесь, только я делаю туториалы (из youtube видео в основном).
+Ничего интересного здесь, только я делаю туториалы из youtube видео и не только.
 
 Visual_3D_Art_Gallery:
 
