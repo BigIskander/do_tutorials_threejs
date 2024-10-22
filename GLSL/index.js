@@ -26,10 +26,13 @@ var fragmentShaders = [
     "./shaders/random/random_mosaic.frag",  //21
     "./shaders/random/random_maze.frag",    //22
     "./shaders/random/noise.frag",          //23
-    "./shaders/random/simplex_noise.frag"   //24
+    "./shaders/random/simplex_noise.frag",  //24
+    "./shaders/random/noise_celular.frag",  //25
+    "./shaders/random/noise_celular_voronoi.frag",   //26
+    "./shaders/random/cloud_like.frag"      //27
 ];
 // the chosen shader
-var nShader = 24;
+var nShader = 27;
 
 var camera, scene, renderer, clock;
 var uniforms;
@@ -83,7 +86,7 @@ function init() {
 
     document.onmousemove = function(e){
       uniforms.u_mouse.value.x = e.pageX
-      uniforms.u_mouse.value.y = e.pageY
+      uniforms.u_mouse.value.y = window.innerHeight - e.pageY
     }
 
     renderer.setAnimationLoop(render);
