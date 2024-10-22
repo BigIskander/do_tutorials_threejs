@@ -7,10 +7,11 @@ var fragmentShaders = [
     "./shaders/color_transition.frag",
     "./shaders/color_mix.frag",
     "./shaders/HSB.frag",
-    "./shaders/HSB_polar.frag"
+    "./shaders/HSB_polar.frag",
+    "./shaders/HSB_exp.frag"
 ];
 // the chosen shader
-var nShader = 5;
+var nShader = 6;
 
 var camera, scene, renderer, clock;
 var uniforms;
