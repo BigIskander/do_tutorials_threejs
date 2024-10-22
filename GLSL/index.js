@@ -19,10 +19,12 @@ var fragmentShaders = [
     "./shaders/move_space.frag",            //14
     "./shaders/rotate_space.frag",          //15
     "./shaders/scale_space.frag",           //16
-    "./shaders/yuv.frag"                    //17
+    "./shaders/yuv.frag",                   //17
+    "./shaders/9fract.frag",                //18
+    "./shaders/9truchet_tiles.frag"         //19
 ];
 // the chosen shader
-var nShader = 17;
+var nShader = 19;
 
 var camera, scene, renderer, clock;
 var uniforms;
