@@ -15,13 +15,13 @@ float plot(vec2 st, float pct){
         smoothstep( pct, pct+0.01, st.y);
 }
 
-int nFormula = 1;
+int nFormula = 5;
 float power = 2.5;
 
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution;
     // change from [0; 1] to [-1.2; 1.2] space
-    st = vec2(st.x * 2.4 - 1.2, st.y * 2.4 - 1.2);
+    // st = vec2(st.x * 2.4 - 1.2, st.y * 2.4 - 1.2);
     float x = st.x;
 
     // functions
@@ -40,6 +40,11 @@ void main() {
     } else
     if(nFormula == 4) {
         y = 1.0 - pow(max(0.0, abs(x) * 2.0 - 1.0), power);
+    } else
+    if(nFormula == 5) {
+        float peak = 3.0;
+        y = pow(cos(PI * (x + 0.5) * peak), 2.) * (1.0 - step(1.0 / (peak * 2.0), x))
+            + pow(cos(PI * (x + 0.5) * peak), 2.) * step(1.0 / (peak * 2.0), x);
     }
 
     vec3 color = vec3(1.0,1.0,1.0);
