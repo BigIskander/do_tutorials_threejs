@@ -21,10 +21,13 @@ var fragmentShaders = [
     "./shaders/scale_space.frag",           //16
     "./shaders/yuv.frag",                   //17
     "./shaders/9fract.frag",                //18
-    "./shaders/9truchet_tiles.frag"         //19
+    "./shaders/9truchet_tiles.frag",        //19
+    "./shaders/random/random.frag",         //20
+    "./shaders/random/random_mosaic.frag",  //21
+    "./shaders/random/random_maze.frag"   //22
 ];
 // the chosen shader
-var nShader = 19;
+var nShader = 22;
 
 var camera, scene, renderer, clock;
 var uniforms;
