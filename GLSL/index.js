@@ -15,10 +15,14 @@ var fragmentShaders = [
     "./shaders/circle_dot_product.frag",    //10
     "./shaders/four_circle_shape.frag",     //11
     "./shaders/polar_shapes.frag",          //12
-    "./shaders/triangle.frag"               //13
+    "./shaders/triangle.frag",              //13
+    "./shaders/move_space.frag",            //14
+    "./shaders/rotate_space.frag",          //15
+    "./shaders/scale_space.frag",           //16
+    "./shaders/yuv.frag"                    //17
 ];
 // the chosen shader
-var nShader = 13;
+var nShader = 17;
 
 var camera, scene, renderer, clock;
 var uniforms;
