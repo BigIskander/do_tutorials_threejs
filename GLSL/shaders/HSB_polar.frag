@@ -24,12 +24,12 @@ void main(){
 
     // Use polar coordinates instead of cartesian
     vec2 toCenter = vec2(0.5)-st;
-    float angle = atan(toCenter.y,toCenter.x);
-    angle = (angle/TWO_PI) + 0.5 + u_time/2.0;
     float radius = length(toCenter)*2.0;
-
     if(radius > 1.0) discard;
 
+    float angle = atan(toCenter.y,toCenter.x);
+    angle = (angle/TWO_PI) + 0.5 + u_time/2.0;
+    
     // Map the angle (-PI to PI) to the Hue (from 0 to 1)
     // and the Saturation to the radius
     color = hsb2rgb(vec3(angle,radius,1.0));
