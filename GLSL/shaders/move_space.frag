@@ -25,6 +25,7 @@ float cross2(in vec2 _st, float _size){
 
 void main(){
     vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    st.x *= u_resolution.x/u_resolution.y;
     vec3 color = vec3(0.0);
 
     // To move the cross we move the space

@@ -16,6 +16,7 @@ float circle(in vec2 _st, in float _radius){
 
 void main() {
 	vec2 st = gl_FragCoord.xy/u_resolution;
+    st.x *= u_resolution.x/u_resolution.y;
     vec3 color = vec3(0.0);
 
     st *= 3.0;      // Scale up the space by 3

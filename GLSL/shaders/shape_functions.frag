@@ -15,13 +15,14 @@ float plot(vec2 st, float pct){
         smoothstep( pct, pct+0.01, st.y);
 }
 
-int nFormula = 5;
+int nFormula = 2;
 float power = 2.5;
 
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution;
+    st.x *= u_resolution.x/u_resolution.y;
     // change from [0; 1] to [-1.2; 1.2] space
-    // st = vec2(st.x * 2.4 - 1.2, st.y * 2.4 - 1.2);
+    st = vec2(st.x * 2.4 - 1.2, st.y * 2.4 - 1.2);
     float x = st.x;
 
     // functions

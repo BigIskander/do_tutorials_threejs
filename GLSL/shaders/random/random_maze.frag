@@ -31,6 +31,7 @@ vec2 truchetPattern(in vec2 _st, in float _index){
 
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    st.x *= u_resolution.x/u_resolution.y;
     st *= 10.0;
     // st = (st-vec2(5.0))*(abs(sin(u_time*0.2))*5.);
     // st.x += u_time*3.0;

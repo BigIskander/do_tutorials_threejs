@@ -11,6 +11,7 @@ uniform float u_time;
 
 void main(){
 	vec2 st = gl_FragCoord.xy/u_resolution;
+    st.x *= u_resolution.x/u_resolution.y;
     float pct = 0.0;
 
     // a. The DISTANCE from the pixel to the center

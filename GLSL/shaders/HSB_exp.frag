@@ -33,6 +33,7 @@ vec3 hsb2rgb( in vec3 c ){
 
 void main(){
     vec2 st = gl_FragCoord.xy/u_resolution;
+    st.x *= u_resolution.x/u_resolution.y;
     vec3 color = vec3(0.0);
 
     // Use polar coordinates instead of cartesian

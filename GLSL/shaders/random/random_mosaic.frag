@@ -17,6 +17,7 @@ float random (vec2 st) {
 
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    st.x *= u_resolution.x/u_resolution.y;
 
     st *= 10.0; // Scale the coordinate system by 10
     vec2 ipos = floor(st);  // get the integer coords
